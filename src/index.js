@@ -21,7 +21,7 @@ function bindQuitKeys () {
 
 bindQuitKeys()
 
-const fps = 20
+const fps = 24
 
 const app = <App
   bindKey={bindKey}

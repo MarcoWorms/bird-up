@@ -31,10 +31,12 @@ export default class App extends Component {
   }
   render () {
     return <element>
-      {this.state.walls.map(wall => <Wall
-        x={wall.x}
-        y={wall.y}
-      />)}
+      {this.state.walls.map(wall =>
+        <Wall
+          x={wall.x}
+          y={wall.y}
+        />
+      )}
       <Bird y={this.state.bird.y} />
     </element>
   }
