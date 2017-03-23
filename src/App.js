@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Bird } from './components'
+import { Bird, Wall } from './components'
 import logic from './logic'
 
 export default class App extends Component {
@@ -12,19 +12,30 @@ export default class App extends Component {
       this.setState(logic.birdUp)
     )
   }
-  enableGravity () {
+  enableUpdate () {
     setInterval(
-      () => this.setState(logic.gravity),
+      () => this.setState(logic.update),
       1000 / this.props.fps
     )
   }
+  enableWallSpawn () {
+    setInterval(
+      () => this.setState(logic.spawnWall),
+      1000
+    )
+  }
   componentDidMount () {
+    this.enableUpdate()
     this.enableJump()
-    this.enableGravity()
+    this.enableWallSpawn()
   }
   render () {
-    return (
+    return <element>
+      {this.state.walls.map(wall => <Wall
+        x={wall.x}
+        y={wall.y}
+      />)}
       <Bird y={this.state.bird.y} />
-    )
+    </element>
   }
 }
