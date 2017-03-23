@@ -14,7 +14,7 @@ function birdUp (state, props) {
   }
 }
 
-function snailDown (state, props) {
+function gravity (state, props) {
   const { bird } = state
   return {
     bird: {
@@ -27,5 +27,5 @@ function snailDown (state, props) {
 export default {
   initialState,
   birdUp,
-  snailDown,
+  gravity,
 }

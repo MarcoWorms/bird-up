@@ -7,9 +7,20 @@ export default class App extends Component {
     super(props)
     this.state = logic.initialState
   }
+  enableJump () {
+    this.props.bindKey('space', () =>
+      this.setState(logic.birdUp)
+    )
+  }
+  enableGravity () {
+    setInterval(
+      () => this.setState(logic.gravity),
+      1000 / this.props.fps
+    )
+  }
   componentDidMount () {
-    this.props.bindKey('space', () => this.setState(logic.birdUp))
-    setInterval(() => this.setState(logic.snailDown), 1000 / this.props.fps)
+    this.enableJump()
+    this.enableGravity()
   }
   render () {
     return (
