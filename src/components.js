@@ -25,20 +25,11 @@ export function Bird (props) {
 }
 
 export function Wall (props) {
-  return <element>
-    {Square({
-      x: props.x,
-      y: props.y -110,
-      width: 5,
-      height: 70,
-      color: 'red',
-    })}
-    {Square({
-      x: props.x,
-      y: props.y,
-      width: 5,
-      height: 70,
-      color: 'red',
-    })}
-  </element>
+  return Square({
+    x: props.x,
+    y: props.y,
+    width: 5,
+    height: 50,
+    color: 'red',
+  })
 }

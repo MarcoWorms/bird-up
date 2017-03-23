@@ -21,7 +21,7 @@ export default class App extends Component {
   enableWallSpawn () {
     setInterval(
       () => this.setState(logic.spawnWall),
-      1000
+      1300
     )
   }
   componentDidMount () {
@@ -35,6 +35,12 @@ export default class App extends Component {
         <Wall
           x={wall.x}
           y={wall.y}
+        />
+      )}
+      {this.state.walls.map(wall =>
+        <Wall
+          x={wall.x}
+          y={wall.y - 90}
         />
       )}
       <Bird y={this.state.bird.y} />

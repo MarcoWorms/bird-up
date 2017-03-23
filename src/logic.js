@@ -1,17 +1,19 @@
 import { merge } from 'ramda'
 
-const initialWallState = { x: 90, y: 60 }
+const buildWall = () => ({
+  x: 90,
+  y: 70 + Math.floor(Math.random() * 30) - 15,
+})
 
 const initialState = {
   bird: {
     y: 0,
     velocity: 0
   },
-  walls: [initialWallState]
+  walls: [buildWall()]
 }
 
 function birdUp (state, props) {
-  console.log(state)
   const { bird } = state
   return {
     bird: merge(bird, {
@@ -23,7 +25,7 @@ function birdUp (state, props) {
 function spawnWall (state, props) {
   const { walls } =  state
   return {
-    walls: [...walls, initialWallState]
+    walls: [...walls, buildWall()]
   }
 }
 
