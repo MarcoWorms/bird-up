@@ -43,7 +43,9 @@ export default class App extends Component {
           y={wall.y - 90}
         />
       )}
-      <Bird y={this.state.bird.y} />
+      <Bird
+        y={this.state.bird.y}
+      />
     </element>
   }
 }

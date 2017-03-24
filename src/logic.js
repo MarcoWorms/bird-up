@@ -13,6 +13,10 @@ const initialState = {
   walls: [buildWall()]
 }
 
+function restart () {
+  return initialState
+}
+
 function birdUp (state, props) {
   const { bird } = state
   return {
@@ -48,10 +52,18 @@ function walls (state, props) {
   }
 }
 
+function birdOutsideScreen (state, props) {
+  const { bird } = state
+  if (bird.y < -1 || bird.y > 100) {
+    return restart()
+  }
+}
+
 function update (state, props) {
   return [
     gravity,
     walls,
+    birdOutsideScreen,
   ].reduce(
     (state, reducer) => merge(state, reducer(state, props)),
     state
@@ -63,4 +75,5 @@ export default {
   birdUp,
   update,
   spawnWall,
+  restart,
 }
