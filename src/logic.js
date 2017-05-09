@@ -1,4 +1,7 @@
-import { merge } from 'ramda'
+import {
+  merge,
+  pipe,
+} from 'ramda'
 
 const buildWall = () => ({
   x: 90,
@@ -13,8 +16,13 @@ const initialState = {
   walls: [buildWall()]
 }
 
-function restart () {
-  return initialState
+function restart (state) {
+  clearInterval(state.updateTimer)
+  clearInterval(state.wallTimer)
+  return pipe(
+    startSpawningWalls.bind(this),
+    startUpdating.bind(this)
+  )(initialState)
 }
 
 function birdUp (state, props) {
@@ -23,6 +31,15 @@ function birdUp (state, props) {
     bird: merge(bird, {
       velocity: -4.3,
     })
+  }
+}
+
+function startSpawningWalls (state, props) {
+  return {
+    wallTimer: setInterval(
+      () => this.setState(spawnWall),
+      1300
+    )
   }
 }
 
@@ -46,7 +63,7 @@ function gravity (state, props) {
 function walls (state, props) {
   const { walls } =  state
   return {
-    walls: walls.map(wall => 
+    walls: walls.map(wall =>
       merge(wall, { x: wall.x - 1 })
     )
   }
@@ -55,7 +72,16 @@ function walls (state, props) {
 function birdOutsideScreen (state, props) {
   const { bird } = state
   if (bird.y < -1 || bird.y > 100) {
-    return restart()
+    return restart.bind(this)(state)
+  }
+}
+
+function startUpdating (state, props) {
+  return {
+    updateTimer: setInterval(
+      () => this.setState(update.bind(this)),
+      1000 / 24
+    )
   }
 }
 
@@ -63,7 +89,7 @@ function update (state, props) {
   return [
     gravity,
     walls,
-    birdOutsideScreen,
+    birdOutsideScreen.bind(this),
   ].reduce(
     (state, reducer) => merge(state, reducer(state, props)),
     state
@@ -73,7 +99,6 @@ function update (state, props) {
 export default {
   initialState,
   birdUp,
-  update,
-  spawnWall,
-  restart,
+  startSpawningWalls,
+  startUpdating,
 }

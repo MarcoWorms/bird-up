@@ -12,22 +12,10 @@ export default class App extends Component {
       this.setState(logic.birdUp)
     )
   }
-  enableUpdate () {
-    setInterval(
-      () => this.setState(logic.update),
-      1000 / this.props.fps
-    )
-  }
-  enableWallSpawn () {
-    setInterval(
-      () => this.setState(logic.spawnWall),
-      1300
-    )
-  }
   componentDidMount () {
-    this.enableUpdate()
+    this.setState(logic.startUpdating.bind(this))
+    this.setState(logic.startSpawningWalls.bind(this))
     this.enableJump()
-    this.enableWallSpawn()
   }
   render () {
     return <element>
